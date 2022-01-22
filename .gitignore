@@ -1,0 +1,7 @@
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+build/
+external/
+bin/
+bin-int/
