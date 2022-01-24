@@ -1,13 +1,27 @@
 #pragma once
 
 #include"RenderWindow.h"
+#include"Utils.h"
+#include"Entity.h"
 
 class Game
 {
 private:
 	RenderWindow window;
-	bool gamerunning;
+	bool gameRunning;
 	SDL_Event event;
+
+	const float timeStep = 0.01f;
+	float accumulator = 0.0f;
+	float currentTime = utils::HireTimeInSeconds();
+	float newTime = 0.0f;
+	float frameTime = 0.0f;
+	float alpha = 0.0f;
+	int startTicks = 0;
+	int frameTicks = 0;
+
+	Entity e;
+
 public:
 	Game();
 	void Init();

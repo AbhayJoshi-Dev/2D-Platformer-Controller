@@ -33,6 +33,23 @@ SDL_Texture* RenderWindow::LoadTexture(const char* filePath)
 	return tex;
 }
 
+void RenderWindow::Render(Entity& entity)
+{
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().h;
+
+	SDL_Rect dst;
+	dst.x = (int)entity.GetPosition().GetX();
+	dst.y = (int)entity.GetPosition().GetY();
+	dst.w = src.w;
+	dst.h = src.h;
+
+	SDL_RenderCopy(renderer, entity.GetTexture(), &src, &dst);
+}
+
 void RenderWindow::Clear()
 {
 	SDL_RenderClear(renderer);
@@ -46,4 +63,12 @@ void RenderWindow::Display()
 void RenderWindow::CleanUp()
 {
 	SDL_DestroyWindow(window);
+}
+
+int RenderWindow::GetRefreshRate()
+{
+	int displayIndex = SDL_GetWindowDisplayIndex(window);
+	SDL_DisplayMode mode;
+	SDL_GetDisplayMode(displayIndex, 0, &mode);
+	return mode.refresh_rate;
 }
