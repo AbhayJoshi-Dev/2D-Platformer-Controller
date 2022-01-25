@@ -2,7 +2,7 @@
 
 #include"RenderWindow.h"
 #include"Utils.h"
-#include"Entity.h"
+#include"Player.h"
 
 class Game
 {
@@ -19,6 +19,8 @@ private:
 	float alpha = 0.0f;
 	int startTicks = 0;
 	int frameTicks = 0;
+
+	Player player;
 
 	Entity e;
 

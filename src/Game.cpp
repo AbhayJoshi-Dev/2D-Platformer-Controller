@@ -5,7 +5,7 @@
 #include"Game.h"
 
 Game::Game()
-	:window(), gameRunning(true), e(Vector(400.f, 300.f))
+	:window(), gameRunning(true), player(Vector(400.f, 300.f)), e(Vector(400.f, 300.f))
 {
 
 	Init();
@@ -22,6 +22,7 @@ void Game::Init()
 
 	window.CreateWindow("2D Platformer Controller", 800, 600);
 
+	player.SetTexture(window.LoadTexture("res/gfx/Player.png"));
 	e.SetTexture(window.LoadTexture("res/gfx/Player.png"));
 }
 
@@ -55,6 +56,14 @@ void Game::GameLoop()
 		alpha = accumulator / timeStep;
 
 		window.Clear();
+
+		if (utils::IsCollision(player, e))
+		{
+			std::cout << "Collision!" << std::endl;
+		}
+
+		window.Render(player);
+		player.Update();
 
 		window.Render(e);
 
