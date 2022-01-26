@@ -5,7 +5,7 @@
 #include"Game.h"
 
 Game::Game()
-	:window(), gameRunning(true), player(Vector(400.f, 300.f)), e(Vector(400.f, 300.f))
+	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f))
 {
 
 	Init();
@@ -23,7 +23,7 @@ void Game::Init()
 	window.CreateWindow("2D Platformer Controller", 800, 600);
 
 	player.SetTexture(window.LoadTexture("res/gfx/Player.png"));
-	e.SetTexture(window.LoadTexture("res/gfx/Player.png"));
+	ground.SetTexture(window.LoadTexture("res/gfx/Ground.png"));
 }
 
 void Game::GameLoop()
@@ -47,6 +47,10 @@ void Game::GameLoop()
 				{
 				case SDL_QUIT:
 					gameRunning = false;
+
+				case SDL_KEYDOWN:
+					if (event.key.keysym.sym == SDLK_SPACE)
+						player.Jump();
 				}
 			}
 
@@ -57,15 +61,14 @@ void Game::GameLoop()
 
 		window.Clear();
 
-		if (utils::IsCollision(player, e))
+		if (utils::IsCollision(player, ground))
 		{
-			std::cout << "Collision!" << std::endl;
+			player.Collision(ground);
 		}
 
 		window.Render(player);
+		window.Render(ground);
 		player.Update();
-
-		window.Render(e);
 
 		window.Display();
 

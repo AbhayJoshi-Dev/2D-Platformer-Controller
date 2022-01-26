@@ -22,7 +22,7 @@ private:
 
 	Player player;
 
-	Entity e;
+	Entity ground;
 
 public:
 	Game();

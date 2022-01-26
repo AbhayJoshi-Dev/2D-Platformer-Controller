@@ -13,16 +13,26 @@ Player::Player(const Vector& pos)
 
 void Player::Update()
 {
-	//velocity.AddTo(gravity);
+	if(velocity.GetY() <= 5.f)
+		velocity.AddTo(gravity);
 
-	int x, y;
-
-	SDL_GetMouseState(&x, &y);
-
-	SetPosition(Vector(x, y));
 
 	Vector pos = GetPosition();
 	pos.AddTo(velocity);
 
 	SetPosition(pos);
+
+	std::cout << velocity.GetX() << ", " << velocity.GetY() << std::endl;
+}
+
+void Player::Collision(Entity& e)
+{
+	Vector pos = Vector(GetPosition().GetX(), e.GetPosition().GetY() - GetCurrentFrame().h);
+	SetPosition(pos);
+}
+
+void Player::Jump()
+{
+	velocity.SubTo(Vector(0.f, 10.f));
+	velocity.SetX(0.f);
 }

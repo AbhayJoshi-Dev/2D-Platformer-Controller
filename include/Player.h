@@ -10,4 +10,6 @@ private:
 public:
 	Player(const Vector& pos);
 	void Update();
+	void Collision(Entity& e);
+	void Jump();
 };
