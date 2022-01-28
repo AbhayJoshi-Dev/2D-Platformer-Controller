@@ -5,7 +5,7 @@
 #include"Game.h"
 
 Game::Game()
-	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f))
+	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f)), isKeyHold_D(false)
 {
 
 	Init();
@@ -47,10 +47,31 @@ void Game::GameLoop()
 				{
 				case SDL_QUIT:
 					gameRunning = false;
+					break;
 
 				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_SPACE)
+					if (player.isGround && event.key.keysym.sym == SDLK_SPACE)
+					{
 						player.Jump();
+					}
+
+					if (event.key.keysym.sym == SDLK_d)
+					{
+						isKeyHold_D = true;
+					}
+
+					if (event.key.keysym.sym == SDLK_a)
+						isKeyHold_A = true;
+
+					break;
+
+				case SDL_KEYUP:
+					if (event.key.keysym.sym == SDLK_d)
+						isKeyHold_D = false;
+					if (event.key.keysym.sym == SDLK_a)
+						isKeyHold_A = false;
+
+					break;
 				}
 			}
 
@@ -61,9 +82,21 @@ void Game::GameLoop()
 
 		window.Clear();
 
+
+		if (isKeyHold_D)
+			player.Move(1);
+		else if (isKeyHold_A)
+			player.Move(-1);
+		else
+			player.deaccelerate = true;
+
 		if (utils::IsCollision(player, ground))
 		{
 			player.Collision(ground);
+		}
+		else
+		{
+			player.isGround = false;
 		}
 
 		window.Render(player);

@@ -24,6 +24,9 @@ private:
 
 	Entity ground;
 
+	bool isKeyHold_D;
+	bool isKeyHold_A;
+
 public:
 	Game();
 	void Init();
