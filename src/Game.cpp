@@ -5,7 +5,8 @@
 #include"Game.h"
 
 Game::Game()
-	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f)), isKeyHold_D(false)
+	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f)), isKeyHold_D(false), 
+	platform(Vector(450.f, 400.f))
 {
 
 	Init();
@@ -24,6 +25,7 @@ void Game::Init()
 
 	player.SetTexture(window.LoadTexture("res/gfx/Player.png"));
 	ground.SetTexture(window.LoadTexture("res/gfx/Ground.png"));
+	platform.SetTexture(window.LoadTexture("res/gfx/Platform.png"));
 }
 
 void Game::GameLoop()
@@ -99,8 +101,14 @@ void Game::GameLoop()
 			player.isGround = false;
 		}
 
+		if (utils::IsCollision(player, platform))
+		{
+			player.Collide(platform);
+		}
+
 		window.Render(player);
 		window.Render(ground);
+		window.Render(platform);
 		player.Update();
 
 		window.Display();

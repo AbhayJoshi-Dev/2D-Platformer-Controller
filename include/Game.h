@@ -3,6 +3,7 @@
 #include"RenderWindow.h"
 #include"Utils.h"
 #include"Player.h"
+#include"Platform.h"
 
 class Game
 {
@@ -26,6 +27,8 @@ private:
 
 	bool isKeyHold_D;
 	bool isKeyHold_A;
+
+	Platform platform;
 
 public:
 	Game();

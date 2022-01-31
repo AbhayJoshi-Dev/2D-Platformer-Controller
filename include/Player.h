@@ -20,4 +20,5 @@ public:
 	void Collision(Entity& e);
 	void Jump();
 	void Move(int dir);
+	void Collide(Entity& e);
 };

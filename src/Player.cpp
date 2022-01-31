@@ -5,7 +5,7 @@
 
 Player::Player(const Vector& pos)
 	:Entity(pos), isGround(false), fallSpeed(.2f), jumpHeight(15.f), acceleration(.1f), maxSpeed(3.5f),
-	deaccelerate(false), deacceleration(0.05)
+	deaccelerate(false), deacceleration(0.05f)
 {
 	velocity.SetLength(0.f);
 }
@@ -45,8 +45,6 @@ void Player::Update()
 	Vector pos = GetPosition();
 	pos.AddTo(velocity);
 	SetPosition(pos);
-
-	std::cout << velocity.GetX() << std::endl;
 }
 
 void Player::Collision(Entity& e)
@@ -68,4 +66,12 @@ void Player::Move(int dir)
 		velocity.AddTo(Vector(acceleration * dir, 0.f));
 
 
+}
+
+void Player::Collide(Entity& e)
+{
+	Vector pos = Vector(GetPosition().GetX(), e.GetPosition().GetY() + e.GetCurrentFrame().h);
+	SetPosition(pos);
+
+	velocity.SetY(velocity.GetY() * -.5f);
 }
