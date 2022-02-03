@@ -6,7 +6,7 @@
 
 Game::Game()
 	:window(), gameRunning(true), player(Vector(400.f, 300.f)), ground(Vector(0.f, 575.f)), isKeyHold_D(false), 
-	platform(Vector(450.f, 400.f))
+	platform(Vector(450.f, 400.f)), platform2(Vector(250.f, 420.f))
 {
 
 	Init();
@@ -26,6 +26,7 @@ void Game::Init()
 	player.SetTexture(window.LoadTexture("res/gfx/Player.png"));
 	ground.SetTexture(window.LoadTexture("res/gfx/Ground.png"));
 	platform.SetTexture(window.LoadTexture("res/gfx/Platform.png"));
+	platform2.SetTexture(window.LoadTexture("res/gfx/Platform2.png"));
 }
 
 void Game::GameLoop()
@@ -106,9 +107,15 @@ void Game::GameLoop()
 			player.Collide(platform);
 		}
 
+		if (utils::IsCollision(player, platform2))
+		{
+			player.Collide(platform2);
+		}
+
 		window.Render(player);
 		window.Render(ground);
 		window.Render(platform);
+		window.Render(platform2);
 		player.Update();
 
 		window.Display();

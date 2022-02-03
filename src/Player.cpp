@@ -64,14 +64,35 @@ void Player::Move(int dir)
 	deaccelerate = false;
 	if (velocity.GetX() <= maxSpeed && velocity.GetX() >= -maxSpeed)
 		velocity.AddTo(Vector(acceleration * dir, 0.f));
-
-
 }
 
 void Player::Collide(Entity& e)
 {
-	Vector pos = Vector(GetPosition().GetX(), e.GetPosition().GetY() + e.GetCurrentFrame().h);
+	Vector pos;
+
+	float x = GetPosition().GetX();
+	float y = GetPosition().GetY();
+
+	if (x + GetCurrentFrame().w - 4.f < e.GetPosition().GetX())
+	{
+		pos = Vector(e.GetPosition().GetX() - GetCurrentFrame().w, y);
+	}
+	else if (x > e.GetPosition().GetX() + e.GetCurrentFrame().w - 4.f)
+	{
+		pos = Vector(e.GetPosition().GetX() + e.GetCurrentFrame().w, y);
+	}
+
+	if (y + GetCurrentFrame().h - 8.f < e.GetPosition().GetY())
+	{
+		pos = Vector(x, e.GetPosition().GetY() - GetCurrentFrame().h);
+	}
+	else if (y > e.GetPosition().GetY() + e.GetCurrentFrame().h - 4.f)
+	{
+		pos = Vector(x, e.GetPosition().GetY() + e.GetCurrentFrame().h);
+		velocity.SetY(velocity.GetY() * -.4f);
+	}
+
 	SetPosition(pos);
 
-	velocity.SetY(velocity.GetY() * -.5f);
+	
 }

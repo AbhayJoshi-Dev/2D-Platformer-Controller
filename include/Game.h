@@ -29,6 +29,7 @@ private:
 	bool isKeyHold_A;
 
 	Platform platform;
+	Platform platform2;
 
 public:
 	Game();
