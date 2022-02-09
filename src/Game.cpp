@@ -93,9 +93,10 @@ void Game::GameLoop()
 		else
 			player.deaccelerate = true;
 
+
 		if (utils::IsCollision(player, ground))
 		{
-			player.Collision(ground);
+			player.Collide(ground);
 		}
 		else
 		{

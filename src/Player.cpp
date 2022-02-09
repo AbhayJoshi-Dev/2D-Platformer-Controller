@@ -68,6 +68,8 @@ void Player::Move(int dir)
 
 void Player::Collide(Entity& e)
 {
+	isGround = true;
+
 	Vector pos;
 
 	float x = GetPosition().GetX();

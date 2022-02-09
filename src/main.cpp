@@ -4,7 +4,7 @@
 int main(int argc, char* args[])
 {
 	Game game;
-	game.GameLoop();
+	SDL_Quit();
 
 	return 0;
 }
